@@ -6,6 +6,16 @@ import { AppHead } from '@components/common/app-head';
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
+import '@rainbow-me/rainbowkit/styles.css';
+import {
+  getDefaultWallets,
+  RainbowKitProvider,
+  lightTheme
+} from '@rainbow-me/rainbowkit';
+import { configureChains, createClient, WagmiConfig } from 'wagmi';
+import { mainnet, polygon, optimism, arbitrum, goerli } from 'wagmi/chains';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { publicProvider } from 'wagmi/providers/public';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -16,6 +26,31 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
+const { chains, provider, webSocketProvider } = configureChains(
+  [
+    mainnet,
+    polygon,
+    optimism,
+    arbitrum,
+    ...(process.env.REACT_APP_ENABLE_TESTNETS === 'true' ? [goerli] : [])
+  ],
+  [
+    alchemyProvider({ apiKey: '_Sh7nSMIHg5SSrr8gszB6ne5zjnXV0yH' }),
+    publicProvider()
+  ]
+);
+const { connectors } = getDefaultWallets({
+  appName: 'Chinese.org',
+  chains
+});
+
+const wagmiClient = createClient({
+  autoConnect: true,
+  connectors,
+  provider,
+  webSocketProvider
+});
+
 export default function App({
   Component,
   pageProps
@@ -25,11 +60,15 @@ export default function App({
   return (
     <>
       <AppHead />
-      <AuthContextProvider>
-        <ThemeContextProvider>
-          {getLayout(<Component {...pageProps} />)}
-        </ThemeContextProvider>
-      </AuthContextProvider>
+      <WagmiConfig client={wagmiClient}>
+        <RainbowKitProvider chains={chains}>
+          <AuthContextProvider>
+            <ThemeContextProvider>
+              {getLayout(<Component {...pageProps} />)}
+            </ThemeContextProvider>
+          </AuthContextProvider>
+        </RainbowKitProvider>
+      </WagmiConfig>
     </>
   );
 }

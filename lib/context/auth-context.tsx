@@ -1,18 +1,11 @@
 import { useState, useEffect, useContext, createContext, useMemo } from 'react';
 import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signOut as signOutFirebase
-} from 'firebase/auth';
-import {
   doc,
   getDoc,
   setDoc,
   onSnapshot,
   serverTimestamp
 } from 'firebase/firestore';
-import { auth } from '@lib/firebase/app';
 import {
   usersCollection,
   userStatsCollection,
@@ -20,12 +13,11 @@ import {
 } from '@lib/firebase/collections';
 import { getRandomId, getRandomInt } from '@lib/random';
 import type { ReactNode } from 'react';
-import type { User as AuthUser } from 'firebase/auth';
 import type { WithFieldValue } from 'firebase/firestore';
 import type { User } from '@lib/types/user';
 import type { Bookmark } from '@lib/types/bookmark';
 import type { Stats } from '@lib/types/stats';
-
+import { useAccount, useDisconnect } from 'wagmi';
 type AuthContext = {
   user: User | null;
   error: Error | null;
@@ -34,7 +26,7 @@ type AuthContext = {
   randomSeed: string;
   userBookmarks: Bookmark[] | null;
   signOut: () => Promise<void>;
-  signInWithGoogle: () => Promise<void>;
+  testSignOut: () => void;
 };
 
 export const AuthContext = createContext<AuthContext | null>(null);
@@ -49,41 +41,24 @@ export function AuthContextProvider({
   const [user, setUser] = useState<User | null>(null);
   const [userBookmarks, setUserBookmarks] = useState<Bookmark[] | null>(null);
   const [error, setError] = useState<Error | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const { disconnect } = useDisconnect();
+  const { address } = useAccount();
 
   useEffect(() => {
-    const manageUser = async (authUser: AuthUser): Promise<void> => {
-      const { uid, displayName, photoURL } = authUser;
-
-      const userSnapshot = await getDoc(doc(usersCollection, uid));
-
+    const handleUser = async (address: string): Promise<void> => {
+      const userSnapshot = await getDoc(doc(usersCollection, address));
       if (!userSnapshot.exists()) {
-        let available = false;
-        let randomUsername = '';
-
-        while (!available) {
-          const normalizeName = displayName?.replace(/\s/g, '').toLowerCase();
-          const randomInt = getRandomInt(1, 10_000);
-
-          randomUsername = `${normalizeName as string}${randomInt}`;
-
-          const randomUserSnapshot = await getDoc(
-            doc(usersCollection, randomUsername)
-          );
-
-          if (!randomUserSnapshot.exists()) available = true;
-        }
-
         const userData: WithFieldValue<User> = {
-          id: uid,
+          id: address,
           bio: null,
-          name: displayName as string,
+          name: address,
           theme: null,
           accent: null,
           website: null,
           location: null,
-          photoURL: photoURL as string,
-          username: randomUsername,
+          photoURL: 'https://picsum.photos/200',
+          username: address,
           verified: false,
           following: [],
           followers: [],
@@ -103,11 +78,10 @@ export function AuthContextProvider({
 
         try {
           await Promise.all([
-            setDoc(doc(usersCollection, uid), userData),
-            setDoc(doc(userStatsCollection(uid), 'stats'), userStatsData)
+            setDoc(doc(usersCollection, address), userData),
+            setDoc(doc(userStatsCollection(address), 'stats'), userStatsData)
           ]);
-
-          const newUser = (await getDoc(doc(usersCollection, uid))).data();
+          const newUser = (await getDoc(doc(usersCollection, address))).data();
           setUser(newUser as User);
         } catch (error) {
           setError(error as Error);
@@ -116,22 +90,17 @@ export function AuthContextProvider({
         const userData = userSnapshot.data();
         setUser(userData);
       }
-
-      setLoading(false);
-    };
-
-    const handleUserAuth = (authUser: AuthUser | null): void => {
-      setLoading(true);
-
-      if (authUser) void manageUser(authUser);
-      else {
-        setUser(null);
+      try {
         setLoading(false);
+      } catch (error) {
+        setError(error as Error);
       }
     };
 
-    onAuthStateChanged(auth, handleUserAuth);
-  }, []);
+    if (address) {
+      handleUser(address);
+    }
+  }, [address]);
 
   useEffect(() => {
     if (!user) return;
@@ -157,23 +126,23 @@ export function AuthContextProvider({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 
-  const signInWithGoogle = async (): Promise<void> => {
-    try {
-      const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      setError(error as Error);
-    }
-  };
-
   const signOut = async (): Promise<void> => {
     try {
-      await signOutFirebase(auth);
+      const { disconnect } = useDisconnect();
+      setLoading(false);
+      setUser(null);
+      disconnect();
+      console.log('disconnect');
     } catch (error) {
       setError(error as Error);
     }
   };
-
+  const testSignOut = () => {
+    setLoading(false);
+    setUser(null);
+    disconnect();
+    console.log('disconnect');
+  };
   const isAdmin = user ? user.username === 'ccrsxx' : false;
   const randomSeed = useMemo(getRandomId, [user?.id]);
 
@@ -185,7 +154,7 @@ export function AuthContextProvider({
     randomSeed,
     userBookmarks,
     signOut,
-    signInWithGoogle
+    testSignOut
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

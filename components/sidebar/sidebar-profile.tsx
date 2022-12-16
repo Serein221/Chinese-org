@@ -13,11 +13,12 @@ import { UserName } from '@components/user/user-name';
 import { UserUsername } from '@components/user/user-username';
 import { variants } from './more-settings';
 import type { User } from '@lib/types/user';
+import { useDisconnect } from 'wagmi';
 
 export function SidebarProfile(): JSX.Element {
-  const { user, signOut } = useAuth();
+  const { user, testSignOut } = useAuth();
   const { open, openModal, closeModal } = useModal();
-
+  const { disconnect } = useDisconnect();
   const { name, username, verified, photoURL } = user as User;
 
   return (
@@ -33,7 +34,7 @@ export function SidebarProfile(): JSX.Element {
           title='Log out of Twitter?'
           description='You can always log back in at any time. If you just want to switch accounts, you can do that by adding an existing account.'
           mainBtnLabel='Log out'
-          action={signOut}
+          action={testSignOut}
           closeModal={closeModal}
         />
       </Modal>

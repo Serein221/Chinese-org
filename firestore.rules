@@ -6,7 +6,7 @@ service cloud.firestore {
     }
 
     function isAuthorized(userId) {
-      return request.auth != null && (userId == request.auth.uid || isAdmin());
+      return true;
     }
 
     function isValidText(text) {
@@ -18,7 +18,7 @@ service cloud.firestore {
     }
     
     match /tweets/{tweetId} {
-      allow read, update: if request.auth != null;
+      allow read, update: if true;
       allow create: if isAuthorized(request.resource.data.createdBy)
                        && isValidText(request.resource.data.text)
                        && isValidImages(request.resource.data.images);
@@ -26,7 +26,11 @@ service cloud.firestore {
     }
 
     match /users/{document=**} {
-      allow read, write: if request.auth != null;
+      allow read, write: if true;
+    }
+     match /{allPaths=**} {
+      // Allow access by all users
+      allow read, write;
     }
   }
 }
