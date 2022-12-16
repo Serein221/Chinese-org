@@ -25,8 +25,7 @@ type AuthContext = {
   isAdmin: boolean;
   randomSeed: string;
   userBookmarks: Bookmark[] | null;
-  signOut: () => Promise<void>;
-  testSignOut: () => void;
+  signOut: () => void;
 };
 
 export const AuthContext = createContext<AuthContext | null>(null);
@@ -57,7 +56,7 @@ export function AuthContextProvider({
           accent: null,
           website: null,
           location: null,
-          photoURL: 'https://picsum.photos/200',
+          photoURL: 'https://picsum.photos/id/237/200/300',
           username: address,
           verified: false,
           following: [],
@@ -98,7 +97,7 @@ export function AuthContextProvider({
     };
 
     if (address) {
-      handleUser(address);
+      void handleUser(address);
     }
   }, [address]);
 
@@ -126,22 +125,10 @@ export function AuthContextProvider({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 
-  const signOut = async (): Promise<void> => {
-    try {
-      const { disconnect } = useDisconnect();
-      setLoading(false);
-      setUser(null);
-      disconnect();
-      console.log('disconnect');
-    } catch (error) {
-      setError(error as Error);
-    }
-  };
-  const testSignOut = () => {
+  const signOut = () => {
     setLoading(false);
     setUser(null);
     disconnect();
-    console.log('disconnect');
   };
   const isAdmin = user ? user.username === 'ccrsxx' : false;
   const randomSeed = useMemo(getRandomId, [user?.id]);
@@ -153,8 +140,7 @@ export function AuthContextProvider({
     isAdmin,
     randomSeed,
     userBookmarks,
-    signOut,
-    testSignOut
+    signOut
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

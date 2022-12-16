@@ -61,7 +61,16 @@ export default function App({
     <>
       <AppHead />
       <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider chains={chains}>
+        <RainbowKitProvider
+          chains={chains}
+          theme={lightTheme({
+            accentColor: '#ff7235',
+            accentColorForeground: 'white',
+            borderRadius: 'small',
+            fontStack: 'system',
+            overlayBlur: 'small'
+          })}
+        >
           <AuthContextProvider>
             <ThemeContextProvider>
               {getLayout(<Component {...pageProps} />)}

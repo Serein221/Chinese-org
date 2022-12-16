@@ -1,7 +1,7 @@
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { NextImage } from '@components/ui/next-image';
 import { CustomIcon } from '@components/ui/custom-icon';
 import { Button } from '@components/ui/button';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export function LoginMain(): JSX.Element {
   return (
