@@ -130,7 +130,7 @@ export function AuthContextProvider({
     setUser(null);
     disconnect();
   };
-  const isAdmin = user ? user.username === 'ccrsxx' : false;
+  const isAdmin = false;
   const randomSeed = useMemo(getRandomId, [user?.id]);
 
   const value: AuthContext = {

@@ -93,10 +93,11 @@ export function MoreSettings(): JSX.Element {
                     {({ active }): JSX.Element => (
                       <Button
                         className={cn(
-                          'flex w-full gap-3 rounded-none rounded-b-md p-4 duration-200',
+                          'flex w-full cursor-not-allowed gap-3 rounded-none rounded-b-md p-4 duration-200',
                           active && 'bg-main-sidebar-background'
                         )}
-                        onClick={openModal}
+                        // onClick={openModal}
+                        onClick={preventBubbling()}
                       >
                         <HeroIcon iconName='PaintBrushIcon' />
                         Display
