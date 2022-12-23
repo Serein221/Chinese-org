@@ -11,7 +11,7 @@ import { Button } from '@components/ui/button';
 import { Loading } from '@components/ui/loading';
 import { HeroIcon } from '@components/ui/hero-icon';
 import { ToolTip } from '@components/ui/tooltip';
-import { FollowButton } from '@components/ui/follow-button';
+import { FollowButton } from '@components/ui/subscribe-button';
 import { variants } from '@components/user/user-header';
 import { UserEditProfile } from '@components/user/user-edit-profile';
 import { UserShare } from '@components/user/user-share';

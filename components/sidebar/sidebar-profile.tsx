@@ -29,7 +29,7 @@ export function SidebarProfile(): JSX.Element {
         <ActionModal
           useIcon
           focusOnMainBtn
-          title='Log out of Twitter?'
+          title='Log out of Chinese.org?'
           description='You can always log back in at any time. If you just want to switch accounts, you can do that by adding an existing account.'
           mainBtnLabel='Log out'
           action={signOut}
@@ -91,7 +91,7 @@ export function SidebarProfile(): JSX.Element {
                     {({ active }): JSX.Element => (
                       <Button
                         className={cn(
-                          'flex w-full gap-3 rounded-md rounded-t-none p-4',
+                          'flex w-full gap-3 truncate rounded-md rounded-t-none p-4',
                           active && 'bg-main-sidebar-background'
                         )}
                         onClick={openModal}

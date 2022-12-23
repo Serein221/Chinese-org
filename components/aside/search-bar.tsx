@@ -53,7 +53,7 @@ export function SearchBar(): JSX.Element {
           className='peer flex-1 bg-transparent outline-none 
                      placeholder:text-light-secondary dark:placeholder:text-dark-secondary'
           type='text'
-          placeholder='Search Twitter'
+          placeholder='Search Posts'
           ref={inputRef}
           value={inputValue}
           onChange={handleChange}
@@ -66,7 +66,8 @@ export function SearchBar(): JSX.Element {
               'focus:scale-100 focus:opacity-100 peer-focus:scale-100 peer-focus:opacity-100'
           )}
           onClick={clearInputValue(true)}
-          disabled={!inputValue}
+          // disabled={!inputValue}
+          disabled={true}
         >
           <HeroIcon className='h-3 w-3 stroke-white' iconName='XMarkIcon' />
         </Button>

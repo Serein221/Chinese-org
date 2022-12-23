@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import cn from 'clsx';
 import { useWindow } from '@lib/context/window-context';
-import { FollowButton } from '@components/ui/follow-button';
+import { FollowButton } from '@components/ui/subscribe-button';
 import { NextImage } from '@components/ui/next-image';
 import { UserAvatar } from './user-avatar';
 import { UserName } from './user-name';

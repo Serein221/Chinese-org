@@ -263,7 +263,7 @@ export function TweetActions({
                       )}
                     >
                       <HeroIcon iconName='UserPlusIcon' />
-                      Follow @{username}
+                      Subscribe @{username}
                     </Popover.Button>
                   )}
                 </Popover.Panel>

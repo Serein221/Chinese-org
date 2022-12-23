@@ -4,6 +4,7 @@ import { AsideTrends } from '@components/aside/aside-trends';
 import { Suggestions } from '@components/aside/suggestions';
 import { Placeholder } from '@components/common/placeholder';
 import type { ReactNode } from 'react';
+import { AsideTokens } from '@components/aside/aside-tokens';
 
 export type LayoutProps = {
   children: ReactNode;
@@ -22,7 +23,7 @@ export function HomeLayout({ children }: LayoutProps): JSX.Element {
     <>
       {children}
       <Aside>
-        <AsideTrends />
+        <AsideTokens />
         <Suggestions />
       </Aside>
     </>
@@ -34,8 +35,8 @@ export function UserLayout({ children }: LayoutProps): JSX.Element {
     <>
       {children}
       <Aside>
+        <AsideTokens />
         <Suggestions />
-        <AsideTrends />
       </Aside>
     </>
   );
@@ -57,7 +58,7 @@ export function PeopleLayout({ children }: LayoutProps): JSX.Element {
     <>
       {children}
       <Aside>
-        <AsideTrends />
+        <AsideTokens />
       </Aside>
     </>
   );

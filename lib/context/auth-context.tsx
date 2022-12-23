@@ -11,7 +11,7 @@ import {
   userStatsCollection,
   userBookmarksCollection
 } from '@lib/firebase/collections';
-import { getRandomId, getRandomInt } from '@lib/random';
+import { getRandomId } from '@lib/random';
 import type { ReactNode } from 'react';
 import type { WithFieldValue } from 'firebase/firestore';
 import type { User } from '@lib/types/user';

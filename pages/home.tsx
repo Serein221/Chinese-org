@@ -26,17 +26,17 @@ export default function Home(): JSX.Element {
 
   return (
     <MainContainer>
-      <SEO title='Home / Twitter' />
+      <SEO title='Home / Chinese.org' />
       <MainHeader
         useMobileSidebar
         title='Home'
         className='flex items-center justify-between'
       >
-        <UpdateUsername />
+        {/* <UpdateUsername /> username is wallet address, can't change */}
       </MainHeader>
       {!isMobile && <Input />}
       <section className='mt-0.5 xs:mt-0'>
-        {loading ? (
+        {/* {loading ? (
           <Loading className='mt-5' />
         ) : !data ? (
           <Error message='Something went wrong' />
@@ -49,7 +49,7 @@ export default function Home(): JSX.Element {
             </AnimatePresence>
             <LoadMore />
           </>
-        )}
+        )} */}
       </section>
     </MainContainer>
   );

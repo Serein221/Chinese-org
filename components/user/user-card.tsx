@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { UserAvatar } from '@components/user/user-avatar';
-import { FollowButton } from '@components/ui/follow-button';
+import { FollowButton } from '@components/ui/subscribe-button';
 import { UserTooltip } from './user-tooltip';
 import { UserName } from './user-name';
 import { UserFollowing } from './user-following';
