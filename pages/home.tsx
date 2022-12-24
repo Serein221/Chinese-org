@@ -113,7 +113,7 @@ export default function Home(): JSX.Element {
           className="ml-1 flex flex-col items-center bg-[url('/assets/memo3.jpg')] bg-contain bg-no-repeat"
           onClick={SetSubscribeEmail}
         >
-          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>Task1</h1>
+          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>Task4</h1>
           <div className='flex flex-row'>
             <p className='mr-2 font-mono italic'>Subscribe newsletter</p>
             <button>
