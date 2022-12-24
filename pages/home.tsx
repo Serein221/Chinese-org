@@ -1,29 +1,33 @@
-import { AnimatePresence } from 'framer-motion';
-import { where, orderBy } from 'firebase/firestore';
 import { useWindow } from '@lib/context/window-context';
-import { useInfiniteScroll } from '@lib/hooks/useInfiniteScroll';
-import { tweetsCollection } from '@lib/firebase/collections';
 import { HomeLayout, ProtectedLayout } from '@components/layout/common-layout';
 import { MainLayout } from '@components/layout/main-layout';
 import { SEO } from '@components/common/seo';
 import { MainContainer } from '@components/home/main-container';
 import { Input } from '@components/input/input';
-import { UpdateUsername } from '@components/home/update-username';
 import { MainHeader } from '@components/home/main-header';
-import { Tweet } from '@components/tweet/tweet';
-import { Loading } from '@components/ui/loading';
-import { Error } from '@components/ui/error';
+import { useState } from 'react';
 import type { ReactElement, ReactNode } from 'react';
+import Switch from 'react-switch';
 
 export default function Home(): JSX.Element {
   const { isMobile } = useWindow();
-
-  const { data, loading, LoadMore } = useInfiniteScroll(
-    tweetsCollection,
-    [where('parent', '==', null), orderBy('createdAt', 'desc')],
-    { includeUser: true, allowNull: true, preserve: true }
-  );
-
+  const [followOnTwitter, setFollowOnTwitter] = useState(false);
+  const [joinDiscord, setJoinDiscord] = useState(false);
+  const [subscribeEmail, setSubscribeEmail] = useState(false);
+  const [retweet, setRetweet] = useState(false);
+  function SetFollowOnTwitter() {
+    setFollowOnTwitter(!followOnTwitter);
+  }
+  function SetJoinDiscord() {
+    setJoinDiscord(!joinDiscord);
+  }
+  function SetSubscribeEmail() {
+    setSubscribeEmail(!subscribeEmail);
+  }
+  function SetRetweet() {
+    setRetweet(!retweet);
+  }
+  const [checked, setChecked] = useState(false);
   return (
     <MainContainer>
       <SEO title='Home / Chinese.org' />
@@ -35,7 +39,99 @@ export default function Home(): JSX.Element {
         {/* <UpdateUsername /> username is wallet address, can't change */}
       </MainHeader>
       {!isMobile && <Input />}
-      <section className='mt-0.5 xs:mt-0'>
+      <section className='mt-0.5 grid h-[500px] grid-cols-2 grid-rows-2 gap-4 bg-main-sidebar-background xs:mt-0'>
+        <button
+          className="ml-1 flex flex-col items-center bg-[url('/assets/memo3.jpg')] bg-contain bg-no-repeat"
+          onClick={SetFollowOnTwitter}
+        >
+          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>Task1</h1>
+          <div className='flex flex-row'>
+            <p className=' mr-2 font-mono italic'>Follow Chinese.org on</p>
+            <button>
+              <img
+                className='mr-4 w-[30px] rounded'
+                src='/assets/twitter-avatar.jpg'
+              ></img>
+            </button>
+          </div>
+          <p className='mt-4 font-mono italic'>to get 100 $CHINESE token !</p>
+          <Switch
+            className='mt-10 ml-[-10px]'
+            uncheckedIcon={false}
+            onChange={setChecked}
+            checked={followOnTwitter}
+          ></Switch>
+        </button>
+
+        <button
+          className="ml-1 flex flex-col items-center bg-[url('/assets/memo3.jpg')] bg-contain bg-no-repeat"
+          onClick={SetRetweet}
+        >
+          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>Task2</h1>
+          <div className='flex flex-row'>
+            <p className=' mr-2 font-mono italic'>Retweet Chinese.org on</p>
+            <button>
+              <img
+                className='mr-4 w-[30px] rounded'
+                src='/assets/twitter-avatar.jpg'
+              ></img>
+            </button>
+          </div>
+          <p className='mt-4 font-mono italic'>to get 100 $CHINESE token !</p>
+          <Switch
+            className='mt-10 ml-[-10px]'
+            uncheckedIcon={false}
+            onChange={setChecked}
+            checked={retweet}
+          ></Switch>
+        </button>
+
+        <button
+          className="ml-1 flex flex-col items-center bg-[url('/assets/memo3.jpg')] bg-contain bg-no-repeat"
+          onClick={SetJoinDiscord}
+        >
+          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>Task3</h1>
+          <div className='flex flex-row'>
+            <p className=' mr-2 font-mono italic'>Join Chinese.org in</p>
+            <button>
+              <img
+                className='mr-4 w-[30px] rounded'
+                src='/assets/discord.png'
+              ></img>
+            </button>
+          </div>
+          <p className='mt-4 font-mono italic'>to get 100 $CHINESE token !</p>
+          <Switch
+            className='mt-10 ml-[-10px]'
+            uncheckedIcon={false}
+            onChange={setChecked}
+            checked={joinDiscord}
+          ></Switch>
+        </button>
+
+        <button
+          className="ml-1 flex flex-col items-center bg-[url('/assets/memo3.jpg')] bg-contain bg-no-repeat"
+          onClick={SetSubscribeEmail}
+        >
+          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>Task1</h1>
+          <div className='flex flex-row'>
+            <p className='mr-2 font-mono italic'>Subscribe newsletter</p>
+            <button>
+              <img
+                className='mr-4 w-[30px] rounded'
+                src='/assets/email.png'
+              ></img>
+            </button>
+          </div>
+          <p className='mt-4 font-mono italic'>to get 100 $CHINESE token !</p>
+          <Switch
+            className='mt-10 ml-[-10px]'
+            uncheckedIcon={false}
+            onChange={setChecked}
+            checked={subscribeEmail}
+          ></Switch>
+        </button>
+
         {/* {loading ? (
           <Loading className='mt-5' />
         ) : !data ? (
