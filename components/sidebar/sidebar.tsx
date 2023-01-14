@@ -10,14 +10,17 @@ import { SidebarLink } from './sidebar-link';
 import { MoreSettings } from './more-settings';
 import { SidebarProfile } from './sidebar-profile';
 import type { IconName } from '@components/ui/hero-icon';
+import { useTranslation } from 'react-i18next';
+
 
 export type NavLink = {
   href: string;
-  linkName: string;
+  linkName: any;
   iconName: IconName;
   disabled?: boolean;
   canBeHidden?: boolean;
 };
+
 
 const navLinks: Readonly<NavLink[]> = [
   {

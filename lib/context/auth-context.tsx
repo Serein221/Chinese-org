@@ -44,6 +44,26 @@ export function AuthContextProvider({
   const { disconnect } = useDisconnect();
   const { address } = useAccount();
 
+  var url1 = [
+    'https://s1.ax1x.com/2023/01/06/pSESTCF.png',
+    'https://s1.ax1x.com/2023/01/06/pSESI4U.png',
+    'https://s1.ax1x.com/2023/01/06/pSES8hD.png',
+    'https://s1.ax1x.com/2023/01/06/pSES3tO.png',
+    'https://s1.ax1x.com/2023/01/06/pSES1AK.png',
+    'https://s1.ax1x.com/2023/01/06/pSESQ76.png',
+    'https://s1.ax1x.com/2023/01/06/pSESM0x.png',
+    'https://s1.ax1x.com/2023/01/06/pSESKn1.png',
+    'https://s1.ax1x.com/2023/01/06/pSESnXR.png',
+    'https://s1.ax1x.com/2023/01/06/pSESmc9.png',
+    'https://s1.ax1x.com/2023/01/06/pSESe1J.png',
+    'https://s1.ax1x.com/2023/01/06/pSESZp4.png',
+    'https://s1.ax1x.com/2023/01/06/pSAzTOI.png'
+  ]
+
+  function getRndInteger1(min1, max1) {
+    return Math.floor(Math.random() * (max1 - min1 + 1) ) + min1;
+  }
+  
   useEffect(() => {
     const handleUser = async (address: string): Promise<void> => {
       const userSnapshot = await getDoc(doc(usersCollection, address));
@@ -56,17 +76,18 @@ export function AuthContextProvider({
           accent: null,
           website: null,
           location: null,
-          photoURL: 'https://picsum.photos/id/237/200/300',
+          photoURL: url1[getRndInteger1(0,12)],
           username: address,
           verified: false,
-          following: [],
-          followers: [],
+          subscribed: [],
+          subscriber: [],
           createdAt: serverTimestamp(),
           updatedAt: null,
           totalTweets: 0,
           totalPhotos: 0,
           pinnedTweet: null,
-          coverPhotoURL: null
+          coverPhotoURL: null,
+          balance: 100
         };
 
         const userStatsData: WithFieldValue<Stats> = {

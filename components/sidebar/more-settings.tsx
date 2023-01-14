@@ -9,6 +9,18 @@ import { HeroIcon } from '@components/ui/hero-icon';
 import { Button } from '@components/ui/button';
 import { MenuLink } from './menu-link';
 import type { Variants } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import i16n from 'pages/i18n'
+import i18n from 'pages/i18n';
+
+const changeLanguage = (ln) =>{
+  return () =>{
+    
+    i18n.changeLanguage(ln);
+    console.log('Language changed to ${ln}');
+  }
+}
+
 
 export const variants: Variants = {
   initial: { opacity: 0, y: 50 },
@@ -22,6 +34,7 @@ export const variants: Variants = {
 
 export function MoreSettings(): JSX.Element {
   const { open, openModal, closeModal } = useModal();
+  const {t,i18n} =useTranslation();
 
   return (
     <>
@@ -70,7 +83,7 @@ export function MoreSettings(): JSX.Element {
                         onClick={preventBubbling()}
                       >
                         <HeroIcon iconName='Cog8ToothIcon' />
-                        Settings and privacy
+                        {t('Settings and privacy')}
                       </MenuLink>
                     )}
                   </Menu.Item>
@@ -85,10 +98,29 @@ export function MoreSettings(): JSX.Element {
                         onClick={preventBubbling()}
                       >
                         <HeroIcon iconName='QuestionMarkCircleIcon' />
-                        Help center
+                        {t('Help center')}
                       </MenuLink>
                     )}
                   </Menu.Item>
+
+                  <Menu.Item>
+                    {({ active }): JSX.Element => (
+                      <MenuLink
+                        className={cn(
+                          'flex w-full cursor-not-allowed gap-3 rounded-t-md p-4 duration-200',
+                          active && 'bg-main-sidebar-background'
+                        )}
+                        href='/EN-ZH'
+                        onClick={preventBubbling()}
+                      >
+                        <HeroIcon iconName='Cog8ToothIcon' />
+                        <button onClick={changeLanguage("en")} > EN</button>
+                        <button onClick={changeLanguage("zh")} > ZH</button>
+                        
+                      </MenuLink>
+                    )}
+                  </Menu.Item>
+
                   <Menu.Item>
                     {({ active }): JSX.Element => (
                       <Button
@@ -100,7 +132,7 @@ export function MoreSettings(): JSX.Element {
                         onClick={preventBubbling()}
                       >
                         <HeroIcon iconName='PaintBrushIcon' />
-                        Display
+                        {t('Display')}
                       </Button>
                     )}
                   </Menu.Item>

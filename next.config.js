@@ -6,9 +6,11 @@ const nextConfig = {
     domains: [
       'lh3.googleusercontent.com',
       'firebasestorage.googleapis.com',
-      'picsum.photos'
+      'picsum.photos',
+      's1.ax1x.com'
     ]
   }
 };
 
 module.exports = nextConfig;
+

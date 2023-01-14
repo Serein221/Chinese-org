@@ -3,6 +3,8 @@ import Navbar from '../components/landing_page/NavBar';
 import Hero from '../components/landing_page/Hero';
 import type { ReactElement, ReactNode } from 'react';
 
+import'./i18n'
+
 export default function Login(): JSX.Element {
   return (
     <div>

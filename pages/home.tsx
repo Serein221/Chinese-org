@@ -8,6 +8,9 @@ import { MainHeader } from '@components/home/main-header';
 import { useState } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 import Switch from 'react-switch';
+import { useTranslation } from 'react-i18next';
+
+
 
 export default function Home(): JSX.Element {
   const { isMobile } = useWindow();
@@ -15,6 +18,8 @@ export default function Home(): JSX.Element {
   const [joinDiscord, setJoinDiscord] = useState(false);
   const [subscribeEmail, setSubscribeEmail] = useState(false);
   const [retweet, setRetweet] = useState(false);
+  const {t,i18n} =useTranslation();
+
   function SetFollowOnTwitter() {
     setFollowOnTwitter(!followOnTwitter);
   }
@@ -44,9 +49,9 @@ export default function Home(): JSX.Element {
           className="ml-1 flex flex-col items-center bg-[url('/assets/memo3.jpg')] bg-contain bg-no-repeat"
           onClick={SetFollowOnTwitter}
         >
-          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>Task1</h1>
+          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>{t('Task')} 1</h1>
           <div className='flex flex-row'>
-            <p className=' mr-2 font-mono italic'>Follow Chinese.org on</p>
+            <p className=' mr-2 font-mono italic'>{t('Follow Chinese.org on')}</p>
             <button>
               <img
                 className='mr-4 w-[30px] rounded'
@@ -54,7 +59,7 @@ export default function Home(): JSX.Element {
               ></img>
             </button>
           </div>
-          <p className='mt-4 font-mono italic'>to get 100 $CHINESE token !</p>
+          <p className='mt-4 font-mono italic'>{t('to get 100 $CHINESE token !')}</p>
           <Switch
             className='mt-10 ml-[-10px]'
             uncheckedIcon={false}
@@ -67,9 +72,9 @@ export default function Home(): JSX.Element {
           className="ml-1 flex flex-col items-center bg-[url('/assets/memo3.jpg')] bg-contain bg-no-repeat"
           onClick={SetRetweet}
         >
-          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>Task2</h1>
+          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>{t('Task')} 2</h1>
           <div className='flex flex-row'>
-            <p className=' mr-2 font-mono italic'>Retweet Chinese.org on</p>
+            <p className=' mr-2 font-mono italic'>{t('Retweet Chinese.org on')}</p>
             <button>
               <img
                 className='mr-4 w-[30px] rounded'
@@ -77,7 +82,7 @@ export default function Home(): JSX.Element {
               ></img>
             </button>
           </div>
-          <p className='mt-4 font-mono italic'>to get 100 $CHINESE token !</p>
+          <p className='mt-4 font-mono italic'>{t('to get 100 $CHINESE token !')}</p>
           <Switch
             className='mt-10 ml-[-10px]'
             uncheckedIcon={false}
@@ -90,9 +95,9 @@ export default function Home(): JSX.Element {
           className="ml-1 flex flex-col items-center bg-[url('/assets/memo3.jpg')] bg-contain bg-no-repeat"
           onClick={SetJoinDiscord}
         >
-          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>Task3</h1>
+          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>{t('Task')} 3</h1>
           <div className='flex flex-row'>
-            <p className=' mr-2 font-mono italic'>Join Chinese.org in</p>
+            <p className=' mr-2 font-mono italic'>{t('Join Chinese.org in')}</p>
             <button>
               <img
                 className='mr-4 w-[30px] rounded'
@@ -100,7 +105,7 @@ export default function Home(): JSX.Element {
               ></img>
             </button>
           </div>
-          <p className='mt-4 font-mono italic'>to get 100 $CHINESE token !</p>
+          <p className='mt-4 font-mono italic'>{t('to get 100 $CHINESE token !')}</p>
           <Switch
             className='mt-10 ml-[-10px]'
             uncheckedIcon={false}
@@ -113,9 +118,9 @@ export default function Home(): JSX.Element {
           className="ml-1 flex flex-col items-center bg-[url('/assets/memo3.jpg')] bg-contain bg-no-repeat"
           onClick={SetSubscribeEmail}
         >
-          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>Task4</h1>
+          <h1 className='mt-7 mb-5 font-mono text-2xl italic'>{t('Task')} 4</h1>
           <div className='flex flex-row'>
-            <p className='mr-2 font-mono italic'>Subscribe newsletter</p>
+            <p className='mr-2 font-mono italic'>{t('Subscribe newsletter')}</p>
             <button>
               <img
                 className='mr-4 w-[30px] rounded'
@@ -123,7 +128,7 @@ export default function Home(): JSX.Element {
               ></img>
             </button>
           </div>
-          <p className='mt-4 font-mono italic'>to get 100 $CHINESE token !</p>
+          <p className='mt-4 font-mono italic'>{t('to get 100 $CHINESE token !')}</p>
           <Switch
             className='mt-10 ml-[-10px]'
             uncheckedIcon={false}
@@ -158,3 +163,8 @@ Home.getLayout = (page: ReactElement): ReactNode => (
     </MainLayout>
   </ProtectedLayout>
 );
+
+
+
+
+

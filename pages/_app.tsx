@@ -1,5 +1,7 @@
 import '@styles/globals.scss';
 
+// import { appWithTranslation } from 'next-i18next';
+
 import { AuthContextProvider } from '@lib/context/auth-context';
 import { ThemeContextProvider } from '@lib/context/theme-context';
 import { AppHead } from '@components/common/app-head';
@@ -16,6 +18,7 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, goerli } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
+
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -51,7 +54,7 @@ const wagmiClient = createClient({
   webSocketProvider
 });
 
-export default function App({
+function App({
   Component,
   pageProps
 }: AppPropsWithLayout): ReactNode {
@@ -81,3 +84,7 @@ export default function App({
     </>
   );
 }
+
+export default App
+
+// export default appWithTranslation(App);
