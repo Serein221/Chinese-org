@@ -11,7 +11,7 @@ import { MoreSettings } from './more-settings';
 import { SidebarProfile } from './sidebar-profile';
 import type { IconName } from '@components/ui/hero-icon';
 import { useTranslation } from 'react-i18next';
-
+import Home from 'pages/home';
 
 export type NavLink = {
   href: string;
@@ -21,7 +21,7 @@ export type NavLink = {
   canBeHidden?: boolean;
 };
 
-
+const {t,i18n} =useTranslation();
 const navLinks: Readonly<NavLink[]> = [
   {
     href: '/home',
@@ -30,7 +30,7 @@ const navLinks: Readonly<NavLink[]> = [
   },
   {
     href: '/explore',
-    linkName: 'Explore',
+    linkName: t('Explore'),
     iconName: 'HashtagIcon',
     disabled: true,
     canBeHidden: true

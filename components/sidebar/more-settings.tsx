@@ -10,7 +10,7 @@ import { Button } from '@components/ui/button';
 import { MenuLink } from './menu-link';
 import type { Variants } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import i16n from 'pages/i18n'
+import i16n from 'pages/i18n';
 import i18n from 'pages/i18n';
 
 const changeLanguage = (ln) =>{
